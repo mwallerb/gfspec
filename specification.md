@@ -26,7 +26,7 @@ Any implementation *must* understand every child specified here, and *must* igno
 
 
 Green's function group
----------------------
+----------------------
 Each Green's function object is characterized by a Green's function group, which corresponds to a HDF5 group. The group may have any name and may appear anywhere in the group hierarchy of a HDF5 file (i.e., it need not coincide with the root of the hdf5 file).  Multiple Green's function object may be present in the HDF5 file.  Green's function object may not be directly or indirectly nested.
 
 Each Green's function group shall have the following structure:
@@ -45,7 +45,18 @@ The array shape of `data` must be consistent with the `mesh` stored.
 If specified, `target_space_dim` denotes the dimension of the target space of the Green's function (0 meaning scalar, 2 meaning matrix, etc). It *must* be an integer between 0 and the number of dimensions of `data`, and `data` *must* be square in the last `target_space_dim`'th dimensions.
 
 
---------
+Dataset `data`
+--------------
+
+data is a multi-dimensional dataset with scalar, real, values.  Its children are:
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`__complex__`      | int = 1           |          | Marks complex data |
+
+The attribute `__complex__` must be present if and only if the data is complex-valued.  In case of complex-valued Green's functions, the numbers are stored as real in one more dimension, with the last (fastest) dimension being the real and imaginary part.  
+
+The number of dimension of the data is also stored in `mesh/N` (see below).  The ordering of the data is such that the first (slowest changing) index belongs to the first mesh (see mesh section), and the last (fastest changing) index belongs to the last mesh.
 
 
 
