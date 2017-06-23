@@ -14,7 +14,7 @@ Green's functions are structures are stored in the HDF5 file format. Quantities 
 
 Each Green’s function corresponds to a hierarchy of specifically named HDF5 groups.  The children of each such group are specified in a table with the following columns:
 
- * Key: name of the child. The prefix determines the type of child: @ denotes HDF5 attributes, + denotes HDF5 sub-groups, and no prefix is used for HDF5 datasets.
+ * Key: A prefix that determines the type of child (not part of the name): @ denotes HDF5 attributes, + denotes HDF5 sub-groups, and no prefix is used for HDF5 datasets. Followed by the name of the child in the HDF5 file.
 
  * Data type: one of int, string, or double.  Strings are encoded as fixed-length character arrays.  May optionally be followed by array shape in square brackets in the following form: `[dim1]`, `[dim1,dim2]`, etc; `[...]` denotes an arbitrary multi-dimensional array. May optionally be followed by an equal sign and the set of allowed values.
 
