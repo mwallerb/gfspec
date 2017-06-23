@@ -42,7 +42,7 @@ Each Green's function group shall have the following structure:
 
 The array shape of `data` must be consistent with the `mesh` stored.
 
-If specified, `target_space_dim` denotes the dimension of the target space of the Green's function (0 meaning scalar, 2 meaning matrix, etc). It must be an integer between 0 and the number of dimensions of `data`, and `data` must be square in the last `target_space_dim`'th dimensions.
+If specified, `target_space_dim` denotes the dimension of the target space of the Green's function (0 meaning scalar, 2 meaning matrix, etc). It *must* be an integer between 0 and the number of dimensions of `data`, and `data` *must* be square in the last `target_space_dim`'th dimensions.
 
 
 --------
