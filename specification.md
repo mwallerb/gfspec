@@ -54,7 +54,7 @@ data is a multi-dimensional dataset with scalar, real, values.  Its children are
 |---------------------|-------------------|----------|-------------|
 | @`__complex__`      | int = 1           | iff data is complex | Tag for complex-valued data |
 
-The attribute `__complex__` must be present if and only if the data is complex-valued.  In case of complex-valued Green's functions, the numbers are stored as real in one more dimension, with the last (fastest) dimension being the real and imaginary part.  
+The attribute `__complex__` must be present if and only if the data is complex-valued.  In case of complex-valued Green's functions, the numbers are stored as real in one more dimension, with the last (fastest) dimension of size 2 discriminating between real part (index 0) and imaginary part (index 1).
 
 The number of dimension of the data is also stored in `mesh/N` (see below).  The ordering of the data is such that the first (slowest changing) index belongs to the first mesh (see mesh section), and the last (fastest changing) index belongs to the last mesh.
 
