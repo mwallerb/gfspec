@@ -16,7 +16,7 @@ Each Green’s function corresponds to a hierarchy of specifically named HDF5 gr
 
  * Key: name of the child. The prefix determines the type of child: @ denotes HDF5 attributes, + denotes HDF5 sub-groups, and no prefix is used for HDF5 datasets.
 
- * Data type: one of int, string, or double.  Strings are encoded as fixed-length character arrays.  May optionally be followed by array dimensions in square brackets in the following form: `[dim1]`, `[dim1,dim2]`, etc; `[...]` denotes an arbitrary multi-dimensional array. May optionally be followed by an equal sign and the set of allowed values.
+ * Data type: one of int, string, or double.  Strings are encoded as fixed-length character arrays.  May optionally be followed by array shape in square brackets in the following form: `[dim1]`, `[dim1,dim2]`, etc; `[...]` denotes an arbitrary multi-dimensional array. May optionally be followed by an equal sign and the set of allowed values.
 
  * Presence: whether the argument is required
  
@@ -34,16 +34,17 @@ Each Green's function group shall have the following structure:
 | key                 | data type         | presence | Description |
 |---------------------|-------------------|----------|-------------|
 | @`kind`             | string = `'GF'`   | required | Identification tag |
-| @`target_space_dim` | int               |          | Dimension of the target space (0=scalar, 2=matrix, ...) |
+| @`target_space_dim` | int               |          | Dimension of the target space |
 | `data`              | double[...]       | required | Data as multi-dimensional array |
+| +`mesh`             |                   | required | Metadata associated with the data array dimensions |
 | +`tail`             |                   |          | Asymptotic tail of the function |
-| +`mesh`             |                   | required | Metadata associated with the array dimensions |
 | +`version`          |                   | required | Version information |
 
+The array shape of `data` must be consistent with the `mesh` stored.
+
+If specified, `target_space_dim` denotes the dimension of the target space of the Green's function (0 meaning scalar, 2 meaning matrix, etc). It must be an integer between 0 and the number of dimensions of `data`, and `data` must be square in the last `target_space_dim`'th dimensions.
 
 
-
-Notation
 --------
 
 
