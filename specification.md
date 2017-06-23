@@ -52,7 +52,7 @@ data is a multi-dimensional dataset with scalar, real, values.  Its children are
 
 | key                 | data type         | presence | Description |
 |---------------------|-------------------|----------|-------------|
-| @`__complex__`      | int = 1           |          | Marks complex data |
+| @`__complex__`      | int = 1           | iff data is complex | Tag for complex-valued data |
 
 The attribute `__complex__` must be present if and only if the data is complex-valued.  In case of complex-valued Green's functions, the numbers are stored as real in one more dimension, with the last (fastest) dimension being the real and imaginary part.  
 
