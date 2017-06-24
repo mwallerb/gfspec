@@ -70,3 +70,11 @@ Subgroup `mesh`
 | +`3`                |                   |          | Mesh for the third dimension |
 | ...                 |                   |          | ... |
 
+Each mesh has the following children:
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`kind`             | string            | required | Discriminates between mesh types/domains |
+| `label`             | string            |          | An optional string labeling the mesh instance |
+| `size`              | int               | required | Number of mesh points/data points along dimension |
+| ...                 |                   |          | Further domain-specific datasets ... |
