@@ -27,7 +27,7 @@ Any implementation *must* understand every child specified here, and *must* igno
 
 Green's function group
 ----------------------
-Each Green's function object is characterized by a Green's function group, which corresponds to a HDF5 group. The group may have any name and may appear anywhere in the group hierarchy of a HDF5 file (i.e., it need not coincide with the root of the hdf5 file).  Multiple Green's function object may be present in the HDF5 file.  Green's function object may not be directly or indirectly nested.
+The topmost object of any Green's function object is characterized by a Green's function group, which corresponds to a HDF5 group with `@kind='GF'`. The group may have any name and may appear anywhere in the group hierarchy of a HDF5 file (i.e., it need not coincide with the root of the hdf5 file).  Multiple Green's function object may be present in the HDF5 file, but they must not be directly or indirectly nested.
 
 Each Green's function group shall have the following structure:
 
@@ -48,7 +48,7 @@ If specified, `target_space_dim` denotes the dimension of the target space of th
 Dataset `data`
 --------------
 
-data is a multi-dimensional dataset with scalar, real, values.  Its children are:
+`data` is a multi-dimensional dataset of double values.  Its children are:
 
 | key                 | data type         | presence | Description |
 |---------------------|-------------------|----------|-------------|
@@ -58,12 +58,15 @@ The attribute `__complex__` must be present if and only if the data is complex-v
 
 The number of dimension of the data is also stored in `mesh/N` (see below).  The ordering of the data is such that the first (slowest changing) index belongs to the first mesh (see mesh section), and the last (fastest changing) index belongs to the last mesh.
 
+Subgroup `mesh`
+---------------
+`mesh` contains the grids/meshes on which the Green's function is stored.  There is one mesh per dimension of the Green's function data, stored at `/mesh/1`, `/mesh/2`, etc.  The dimensions of the data must correspond to the number N of meshes; mesh `<n>` corresponds to the `n`-th dimension of the `data` dataset.
 
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`kind`             | string = <br/> `'CartesianProductMesh'` | required | Identification tag |
+| +`1`                |                   | required | Mesh for the first dimension |
+| +`2`                |                   |          | Mesh for the second dimension |
+| +`3`                |                   |          | Mesh for the third dimension |
+| ...                 |                   |          | ... |
 
-
-
-
-
-
-
-x
