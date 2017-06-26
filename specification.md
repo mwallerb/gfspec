@@ -78,3 +78,87 @@ Each mesh has the following children:
 | `label`             | string            |          | An optional string labeling the mesh instance |
 | `size`              | int               | required | Number of mesh points/data points along dimension |
 | ...                 |                   |          | Further domain-specific datasets ... |
+
+A list of mesh types follows:
+
+**Index mesh**
+
+Index meshes describe simple indices (like spin or orbital indices):
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`kind`             | string =<br/>'MeshIndex' | required | Discriminates between mesh types/domains |
+| `label`             | string            |          | An optional string labeling the mesh instance |
+| `size`              | int               | required | Number of mesh points/data points along dimension |
+
+
+**Matsubara frequency mesh**
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`kind`             | string =<br/>'MeshImaginaryFrequency' | required | Discriminates between mesh types/domains |
+| `label`             | string            |          | An optional string labeling the mesh instance |
+| `size`              | int               | required | Number of mesh points/data points along dimension |
+| `beta`              | double            | required | Inverse temperature |
+| `statistics`        | string = 'B','F'  | required | `B`osonic or `F`ermionic statistics |
+| `positive_freq_only`| int = 0,1         | required | Only positive frequency axis stored? |
+| `points`            | double[`size`]    |          | explicit values of the Matsubara frequencies |
+
+This defines the grid $ \omega_n = (2n+1)\pi/\beta $ for fermions, $ \Omega_n = 2n\pi/\beta $ for bosons.
+
+For fermions: $n=0..(N-1)$ (N grid points) if only positive frequencies are stored; $n=-N, -(N-1), .., -1, 0,..(N-1)$ (2N grid points) if both frequencies are stored. 
+
+For bosons:  $n=0..(N-1)$ (N grid points) if only positive frequencies are stored; $n=-(N-1), .., 0,..(N-1)$ (2N-1 grid points) if both frequencies are stored.
+
+If the optional parameter `points` is specified, it *must* be verified upon reading.
+
+**Imaginary time mesh**
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`kind`             | string =<br/>'MeshImaginaryTime' | required | Discriminates between mesh types/domains |
+| `label`             | string            |          | An optional string labeling the mesh instance |
+| `size`              | int               | required | Number of mesh points/data points along dimension |
+| `beta`              | double            | required | Inverse temperature |
+| `statistics`        | string = 'B','F'  | required | `B`osonic or `F`ermionic statistics |
+| `last_point_included`| int = 0,1        | required | 0 if the last point is at $\beta$, 1 otherwise |
+| `half_point_mesh`   | int = 0,1         | required | 0 if points are shifted by $\beta/N*0.5$, 1 otherwise |
+| `points`            | double[`size`]    |          | explicit values of the Matsubara frequencies |
+
+**Linear real frequency mesh**
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`kind`             | string =<br/>'MeshRealFrequencyLinear' | required | Discriminates between mesh types/domains |
+| `label`             | string            |          | An optional string labeling the mesh instance |
+| `size`              | int               | required | Number of mesh points/data points along dimension |
+| `min`               | double            | required | Frequency of the lowest meshpoint |
+| `max`               | double            | required | Frequency of the highest meshpoint |
+| `points`            | double[`size`]    |          | explicit values of the real frequencies |
+
+**Arbitrary real frequency mesh**
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`kind`             | string =<br/>'MeshRealFrequency' | required | Discriminates between mesh types/domains |
+| `label`             | string            |          | An optional string labeling the mesh instance |
+| `size`              | int               | required | Number of mesh points/data points along dimension |
+| `points`            | double[`size`]    |          | explicit values of the real frequencies |
+
+**Legendre mesh**
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`kind`             | string =<br/>'MeshImaginaryTime' | required | Discriminates between mesh types/domains |
+| `label`             | string            |          | An optional string labeling the mesh instance |
+| `size`              | int               | required | Number of mesh points/data points along dimension |
+| `beta`              | double            | required | Inverse temperature |
+| `statistics`        | string = 'B','F'  | required | `B`osonic or `F`ermionic statistics |
+
+TODO: real space/momentum space
+
+Subgroup `tail`
+---------------
+
+
+
