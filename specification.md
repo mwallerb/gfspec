@@ -159,6 +159,33 @@ TODO: real space/momentum space
 
 Subgroup `tail`
 ---------------
+The tail group contains a model of the Green's function, mostly to take care of the behavior at infinite frequency.  For a simple power expansion (`TailGFPower`), it is written as:
 
+G(i\omega_n) = c_0 + c_1/(i\omega_n) + c_2/(i\omega_n)^2+...
 
+High frequency tails are only defined if there is only one Matsubara/imaginary time/ real time/ real frequency axis. They are not defined for multiple-frequency vertex functions.
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| @`kind`             | string =<br/>'TailGFPower' | required | Discriminates between mesh types/domains |
+| `min_tail_order`    | int               | required | Lowest power of $1/iw$ stored |
+| `max_tail_order`    | int               | required | Highest power of $1/iw$ stored |
+| `data`              | double[n,...]     | required | Tail data |
+
+The minimum and maximum high frequency expansion coefficient indices are stored in min_tail_order and max_tail_order. min_tail_order=0 corresponds to a constant term, min_tail_order=1 to the 1/(i omega_n) term, etc.
+
+The first dimension of data is `max_tail_order - min_tail_order + 1`, and the tails are stored in order of ascending powers along that direction.  The remaining dimensions *must* correspond exactly to the non-frequency dimensions of the Green's function data group (see there).
+
+For Green's functions which are not stored in Matsubara frequencies, these coefficients describe the high frequency tails of the function transformed to Matsubara frequencies.
+
+Subgroup `version`
+------------------
+Version of the hdf5 specification this data file adheres to, with minor and major version. Current `major` version is 3, current `minor` version is 0. `reference` contains a string pointing to the URL of this document. `originator` is a program specific string that describes the program that wrote this file.
+
+| key                 | data type         | presence | Description |
+|---------------------|-------------------|----------|-------------|
+| `major`             | int               | required | Version number, major digit |
+| `minor`             | int               | required | Version number, minor digit |
+| `reference`         | string            | required | URL of a copy of this document |
+| `originator`        | string            | required | String specifying the implementation |
 
